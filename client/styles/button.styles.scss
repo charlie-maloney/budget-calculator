@@ -1,0 +1,33 @@
+@import './constants/colors';
+@import './constants/fonts';
+
+
+.custom-button {
+  padding: 0.25rem 1.75rem;
+  background-color: $darkGray;
+  margin-left: 1.5rem;
+  font-family: $roboto;
+  font-size: 1rem;
+  color: white;
+  border: 1.5px solid $primaryGreen;
+  border-radius: 5px;
+  outline: none;
+
+  &:hover {
+    background-color: $primaryGreen;
+    cursor: pointer;
+  }
+
+  &:focus:active {
+    outline: none;
+  }
+}
+
+.primary {
+  background-color: $primaryGreen;
+
+  &:hover {
+    background-color: $darkGreen;
+    border: 1.5px solid $darkGreen;
+  }
+}

@@ -1,0 +1,22 @@
+.main-container {
+  width: 90vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 5px;
+  grid-template-areas: 
+    "salary salary"
+    "pay pay"
+    "chart line-items"
+    ;
+}
+
+.salary-input {
+  grid-area: salary;
+}
+
+// .hello {
+//   width: 100%;
+//   border: 1px solid green;
+//   grid-area: header;
+// }
