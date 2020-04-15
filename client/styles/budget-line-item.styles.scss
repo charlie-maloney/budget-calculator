@@ -2,6 +2,7 @@
 @import './constants/fonts';
 
 .line-item {
+  position: relative;
   width: 100%;
   height: 50px;
   display: flex;
@@ -9,12 +10,36 @@
   align-items: center;
   color: white;
   padding: .5rem;
-  border-bottom: 5px solid $primaryGray;
+  background-color: $lightGray;
+  margin-bottom: 5px;
   box-sizing: border-box;
 
+  &:hover {
+    font-size: 1.25rem;
+  }
+
+  i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translate(0, -50%);
+    color: $primaryGray;
+
+    &:hover {
+      color: #c62828;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  }
+
   .category {
-    font-size: 1rem;
     font-weight: bold;
+    margin-left: 2rem;
+  }
+
+  .percentage {
+    position: absolute;
+    left: 50%;
   }
 
   input {

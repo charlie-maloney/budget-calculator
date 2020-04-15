@@ -2,6 +2,23 @@
 @import './constants/fonts';
 
 .budget-container {
-  height: 400px;
-  background-color: $lightGray;
+  position: relative;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  .plus {
+    position: absolute;
+    left: 50%;
+    bottom: -10%;
+    transform: translate(-50%);
+    color: $darkGreen;
+    font-size: 2rem;
+
+    &:hover {
+      color: $primaryGreen;
+      font-size: 2.5rem;
+      cursor: pointer;
+    }
+  }
 }

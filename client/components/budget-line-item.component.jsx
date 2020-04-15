@@ -1,12 +1,24 @@
 import React from 'react';
-import '../styles/budget-line-item.styles.scss'
+import '../styles/budget-line-item.styles.scss';
 
-const BudgetLineItem = () => (
-  <div className='line-item'>
-    <div className="category">Housing</div>
-    <div className="percentage">20%</div>
-    <input type="text" placeholder="$"/>
-  </div>
-)
+const BudgetLineItem = ({ id, category, amount, total, monthlyIncome, setAmount }) => {
+
+  const formatPercentage = (amount, monthlyIncome) => {
+    if (amount / monthlyIncome && !Infinity) {
+      return (amount / monthlyIncome * 100).toFixed(2)
+    } else {
+      return 0
+    }
+  }
+
+  return (
+    <div className='line-item'>
+      <div className='category'>{category}</div>
+      <div className='percentage'>{formatPercentage(amount, monthlyIncome)}%</div>
+      <input id={id} type='text' placeholder='$' onChange={setAmount} />
+      <i className="fas fa-minus-square"></i>
+    </div>
+  );
+};
 
 export default BudgetLineItem;

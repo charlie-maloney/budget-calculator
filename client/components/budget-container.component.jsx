@@ -1,18 +1,15 @@
 import React from 'react';
-import BudgetLineItem from './budget-line-item.component'
-import '../styles/budget-container.styles.scss'
+import BudgetLineItem from './budget-line-item.component';
+import '../styles/budget-container.styles.scss';
 
-const BudgetContainer = () => (
-  <div className="budget-container">
-    <BudgetLineItem/>
-    <BudgetLineItem/>
-    <BudgetLineItem/>
-    <BudgetLineItem/>
-    <BudgetLineItem/>
-    <BudgetLineItem/>
-    <BudgetLineItem/>
-    <BudgetLineItem/>
-  </div>
-)
-
+const BudgetContainer = ({ lineItems, total, setAmount, monthlyIncome }) => {
+  return (
+    <div className='budget-container'>
+      {lineItems.map((item, i) => (
+        <BudgetLineItem key={i} id={i} monthlyIncome={monthlyIncome} category={item.category} amount={item.amount} total={total} setAmount={setAmount}/>
+      ))}
+      <i className="plus fas fa-plus-square"></i>
+    </div>
+  );
+};
 export default BudgetContainer;
