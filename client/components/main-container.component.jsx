@@ -5,13 +5,13 @@ import MonthlyPay from './monthly-pay.component';
 import BeforeTax from './before-tax-deduct.component';
 import '../styles/main-container.styles.scss';
 
-import monthlyTaxCalc from '../utils/tax-calculator'
+import monthlyTaxCalc from '../utils/tax-calculator';
 
 const MainContainer = () => {
   const [annualIncome, setAnnualIncome] = useState(0);
   const [monthlyIncome, setMonthlyIncome] = useState(0);
-  const [preTaxSavings, setPreTaxSavings] = useState(0)
-  const [preTaxInsurance, setPreTaxInsurance] = useState(0)
+  const [preTaxSavings, setPreTaxSavings] = useState(0);
+  const [preTaxInsurance, setPreTaxInsurance] = useState(0);
   const [location, setLocation] = useState(0);
   const [balance, setBalance] = useState(0);
   const [total, setTotal] = useState(0);
@@ -30,11 +30,9 @@ const MainContainer = () => {
     setTotal(getTotal(lineItems));
     setBalance((monthlyIncome - total).toFixed(0) || 0);
     // Calculate Monthly Paycheck
-    const monthlyPayCheck = monthlyTaxCalc(annualIncome, preTaxSavings, preTaxInsurance).toFixed(0)
+    const monthlyPayCheck = monthlyTaxCalc(annualIncome, preTaxSavings, preTaxInsurance).toFixed(0);
     setMonthlyIncome(monthlyPayCheck);
   });
-  
-  // console.log(monthlyTaxCalc(100000, preTaxSavings, preTaxInsurance))
 
   const getTotal = (array) => array.reduce((acc, curr) => acc + Number(curr.amount), 0);
 
@@ -45,13 +43,13 @@ const MainContainer = () => {
 
   const handleSavings = (e) => {
     const savings = Number(e.target.value);
-    setPreTaxSavings(savings)
-  }
+    setPreTaxSavings(savings);
+  };
 
   const handleInsurance = (e) => {
     const insurance = Number(e.target.value);
-    setPreTaxInsurance(insurance)
-  }
+    setPreTaxInsurance(insurance);
+  };
 
   const setAmount = (e) => {
     const id = e.target.id;
@@ -62,22 +60,37 @@ const MainContainer = () => {
     setLineItems(newArr);
   };
 
+  const deleteLineItem = (e) => {
+    const id = Number(e.target.id)
+    let newArr = [...lineItems]
+    newArr = newArr.filter((item, i) => i !== id)
+    setLineItems(newArr)
+  }
+
   return (
     <div className='main-container'>
       <div className='salary-input'>
         <SalaryInput setSalary={setSalary} />
       </div>
       <div className='pre-tax-savings'>
-        <BeforeTax handleSavings={handleSavings} text={'Monthly Pre-Tax Savings (401k, IRA, Etc.)'} savings={true}/>
+        <BeforeTax
+          handleSavings={handleSavings}
+          text={'Monthly Pre-Tax Savings (401k, IRA, Etc.)'}
+          savings={true}
+        />
       </div>
       <div className='medical-insurance'>
-        <BeforeTax handleInsurance={handleInsurance} text={' MonthlyPre-Tax Insurance (Medical, Dental, Life, Etc.)'}/>
+        <BeforeTax
+          handleInsurance={handleInsurance}
+          text={' MonthlyPre-Tax Insurance (Medical, Dental, Life, Etc.)'}
+        />
       </div>
       <div className='monthly-pay'>
         <MonthlyPay monthlyIncome={monthlyIncome} balance={balance} />
       </div>
       <div className='budget-container'>
         <BudgetContainer
+          deleteLineItem={deleteLineItem}
           lineItems={lineItems}
           monthlyIncome={monthlyIncome}
           setAmount={setAmount}

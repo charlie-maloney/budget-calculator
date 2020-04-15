@@ -7,7 +7,7 @@ const federalRates = [
   [84201, 160725, 24],
   [160726, 204100, 32],
   [204101, 510300, 35],
-  [510301, Infinity],
+  [510301, Infinity, 37],
 ];
 
 const stateRates = [
@@ -46,6 +46,7 @@ const monthlyTaxCalc = (annualIncome, savings, insurance) => {
   return monthlyPay;
 };
 
+
+
 export default monthlyTaxCalc;
-// module.exports = taxCalculator;
 

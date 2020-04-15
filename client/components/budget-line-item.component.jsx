@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/budget-line-item.styles.scss';
 
-const BudgetLineItem = ({ id, category, amount, total, monthlyIncome, setAmount }) => {
+const BudgetLineItem = ({ id, category, amount, total, monthlyIncome, setAmount, deleteLineItem }) => {
 
   const formatPercentage = (amount, monthlyIncome) => {
     if (amount / monthlyIncome && !Infinity) {
@@ -16,7 +16,7 @@ const BudgetLineItem = ({ id, category, amount, total, monthlyIncome, setAmount 
       <div className='category'>{category}</div>
       <div className='percentage'>{formatPercentage(amount, monthlyIncome)}%</div>
       <input id={id} type='text' placeholder='$' onChange={setAmount} />
-      <i className="fas fa-minus-square"></i>
+      <i id={id} onClick={deleteLineItem} className="fas fa-minus-square"></i>
     </div>
   );
 };
