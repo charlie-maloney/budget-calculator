@@ -15,7 +15,9 @@ const MainContainer = () => {
   const [location, setLocation] = useState(0);
   const [balance, setBalance] = useState(0);
   const [total, setTotal] = useState(0);
+  const [newItem, setNewItem] = useState('')
   const [lineItems, setLineItems] = useState([
+    { category: 'Saving', amount: 0 },
     { category: 'Housing', amount: 0 },
     { category: 'Groceries', amount: 0 },
     { category: 'Gas & Fuel', amount: 0 },
@@ -60,6 +62,18 @@ const MainContainer = () => {
     setLineItems(newArr);
   };
 
+  const addItem = () => {
+    const newArr = [...lineItems];
+    newArr.push({category: newItem, amount: 0})
+    setLineItems(newArr)
+    setNewItem('')
+  }
+
+  const handleNewItem = (e) => {
+    const item = e.target.value
+    setNewItem(item)
+  }
+
   const deleteLineItem = (e) => {
     const id = Number(e.target.id)
     let newArr = [...lineItems]
@@ -82,7 +96,7 @@ const MainContainer = () => {
       <div className='medical-insurance'>
         <BeforeTax
           handleInsurance={handleInsurance}
-          text={' MonthlyPre-Tax Insurance (Medical, Dental, Life, Etc.)'}
+          text={' Monthly Pre-Tax Insurance (Medical, Dental, Life, Etc.)'}
         />
       </div>
       <div className='monthly-pay'>
@@ -90,7 +104,10 @@ const MainContainer = () => {
       </div>
       <div className='budget-container'>
         <BudgetContainer
+          newItem={newItem}
           deleteLineItem={deleteLineItem}
+          handleNewItem={handleNewItem}
+          addItem={addItem}
           lineItems={lineItems}
           monthlyIncome={monthlyIncome}
           setAmount={setAmount}

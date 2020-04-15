@@ -2,7 +2,7 @@ import React from 'react';
 import BudgetLineItem from './budget-line-item.component';
 import '../styles/budget-container.styles.scss';
 
-const BudgetContainer = ({ lineItems, total, setAmount, monthlyIncome, deleteLineItem }) => {
+const BudgetContainer = ({ lineItems, setAmount, monthlyIncome, deleteLineItem, handleNewItem, addItem, newItem }) => {
   return (
     <div className='budget-container'>
       {lineItems.map((item, i) => (
@@ -11,13 +11,15 @@ const BudgetContainer = ({ lineItems, total, setAmount, monthlyIncome, deleteLin
           id={i}
           deleteLineItem={deleteLineItem}
           monthlyIncome={monthlyIncome}
-          category={item.category}
+          category={item.category.toUpperCase()}
           amount={item.amount}
-          total={total}
           setAmount={setAmount}
         />
       ))}
-      <i className='plus fas fa-plus-square'></i>
+      <div className='add-category'>
+        <input onChange={handleNewItem} value={newItem} id='addItem' type="text" placeholder="ADD A NEW LINE ITEM"/>
+        <i onClick={addItem} className='plus fas fa-plus-square'></i>
+      </div>
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 import '../styles/budget-line-item.styles.scss';
 
-const BudgetLineItem = ({ id, category, amount, total, monthlyIncome, setAmount, deleteLineItem }) => {
+const BudgetLineItem = ({ id, category, amount, monthlyIncome, setAmount, deleteLineItem }) => {
 
   const formatPercentage = (amount, monthlyIncome) => {
-    if (amount / monthlyIncome && !Infinity) {
+    if (amount / monthlyIncome && Infinity) {
       return (amount / monthlyIncome * 100).toFixed(2)
     } else {
       return 0

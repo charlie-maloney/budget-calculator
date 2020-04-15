@@ -3,15 +3,30 @@
 
 .budget-container {
   position: relative;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
+
+  .add-category {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    input {
+      background-color: $primaryGray;
+      border: none;
+      margin-right: 1rem;
+      font-size: 1rem;
+      font-family: $roboto;
+      border-bottom: 1px solid $darkGreen;
+      color: white;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+  }
   .plus {
-    position: absolute;
-    left: 50%;
-    bottom: -10%;
-    transform: translate(-50%);
     color: $darkGreen;
     font-size: 2rem;
     transition: .2s;
