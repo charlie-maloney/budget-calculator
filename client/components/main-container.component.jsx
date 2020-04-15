@@ -17,15 +17,15 @@ const MainContainer = () => {
   const [total, setTotal] = useState(0);
   const [newItem, setNewItem] = useState('')
   const [lineItems, setLineItems] = useState([
-    { category: 'Saving', amount: 0 },
-    { category: 'Housing', amount: 0 },
-    { category: 'Groceries', amount: 0 },
-    { category: 'Gas & Fuel', amount: 0 },
-    { category: 'Utilities', amount: 0 },
-    { category: 'Gym', amount: 0 },
-    { category: 'Personal Care', amount: 0 },
-    { category: 'Miscellaneous', amount: 0 },
-    { category: 'Discretionary', amount: 0 },
+    { category: 'Saving', amount: '' },
+    { category: 'Housing', amount: '' },
+    { category: 'Groceries', amount: '' },
+    { category: 'Gas & Fuel', amount: '' },
+    { category: 'Utilities', amount: '' },
+    { category: 'Gym', amount: '' },
+    { category: 'Personal Care', amount: '' },
+    { category: 'Miscellaneous', amount: '' },
+    { category: 'Discretionary', amount: '' },
   ]);
 
   useEffect(() => {

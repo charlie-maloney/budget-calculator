@@ -14,10 +14,19 @@
   margin-bottom: 5px;
   box-sizing: border-box;
   transition: .1s;
-  border-left: 5px solid $darkGreen;
+  border-left: 2px solid $darkGreen;
 
   &:hover {
     font-size: 1.25rem;
+  }
+
+  .fill-level {
+    position: absolute;
+    top: 0;
+    left: 0;
+    // width: 50%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.151);
   }
 
   i {
