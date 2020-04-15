@@ -20,7 +20,7 @@ const stateRates = [
   [295373, 354444, 10.3],
   [354445, 590741, 11.3],
   [590742, 999999, 12.3],
-  [1,000,000, Infinity, 13.3],
+  [1000000, Infinity, 13.3],
 ];
 
 const ficaAndDisablilityCalc = (annualIncome) => {
@@ -46,5 +46,6 @@ const monthlyTaxCalc = (annualIncome, savings, insurance) => {
   return monthlyPay;
 };
 
-module.exports = monthlyTaxCalc;
+export default monthlyTaxCalc;
+// module.exports = taxCalculator;
 

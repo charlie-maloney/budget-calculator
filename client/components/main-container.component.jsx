@@ -5,6 +5,8 @@ import MonthlyPay from './monthly-pay.component';
 import BeforeTax from './before-tax-deduct.component';
 import '../styles/main-container.styles.scss';
 
+import monthlyTaxCalc from '../utils/tax-calculator'
+
 const MainContainer = () => {
   const [annualIncome, setAnnualIncome] = useState(0);
   const [monthlyIncome, setMonthlyIncome] = useState(0);
@@ -27,30 +29,34 @@ const MainContainer = () => {
   useEffect(() => {
     setTotal(getTotal(lineItems));
     setBalance((monthlyIncome - total).toFixed(0) || 0);
+    // Calculate Monthly Paycheck
+    const monthlyPayCheck = monthlyTaxCalc(annualIncome, preTaxSavings, preTaxInsurance).toFixed(0)
+    setMonthlyIncome(monthlyPayCheck);
   });
+  
+  // console.log(monthlyTaxCalc(100000, preTaxSavings, preTaxInsurance))
 
   const getTotal = (array) => array.reduce((acc, curr) => acc + Number(curr.amount), 0);
 
   const setSalary = (e) => {
-    const annualIncome = e.target.value;
+    const annualIncome = Number(e.target.value);
     setAnnualIncome(annualIncome);
-    setMonthlyIncome((annualIncome / 12).toFixed(0));
   };
 
   const handleSavings = (e) => {
-    const savings = e.target.value;
+    const savings = Number(e.target.value);
     setPreTaxSavings(savings)
   }
 
   const handleInsurance = (e) => {
-    const insurance = e.target.value;
+    const insurance = Number(e.target.value);
     setPreTaxInsurance(insurance)
   }
 
   const setAmount = (e) => {
     const id = e.target.id;
     const newObj = lineItems[id];
-    newObj.amount = e.target.value;
+    newObj.amount = Number(e.target.value);
     const newArr = [...lineItems];
     newArr[id] = newObj;
     setLineItems(newArr);
