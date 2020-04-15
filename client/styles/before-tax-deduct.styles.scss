@@ -1,0 +1,35 @@
+@import './constants/colors';
+@import './constants/fonts';
+
+.before-tax {
+  position: relative;
+  width: 100%;
+  height: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding: .5rem;
+  background-color: $lightGray;
+  box-sizing: border-box;
+
+  p {
+    font-size: 0.75rem;
+  }
+
+  input {
+    background-color: $lightGray;
+    border: none;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    font-size: 1rem;
+    font-family: $roboto;
+    border-bottom: 1px solid gray;
+    color: white;
+    width: 5rem;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

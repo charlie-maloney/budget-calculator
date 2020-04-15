@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import SalaryInput from './salary-input.component';
 import BudgetContainer from './budget-container.component';
 import MonthlyPay from './monthly-pay.component';
+import BeforeTax from './before-tax-deduct.component';
 import '../styles/main-container.styles.scss';
 
 const MainContainer = () => {
   const [annualIncome, setAnnualIncome] = useState(0);
   const [monthlyIncome, setMonthlyIncome] = useState(0);
+  const [preTaxSavings, setPreTaxSavings] = useState(0)
+  const [preTaxInsurance, setPreTaxInsurance] = useState(0)
   const [location, setLocation] = useState(0);
   const [balance, setBalance] = useState(0);
   const [total, setTotal] = useState(0);
@@ -22,17 +25,27 @@ const MainContainer = () => {
   ]);
 
   useEffect(() => {
-    setTotal(getTotal(lineItems))
-    setBalance((monthlyIncome - total).toFixed(0) || 0)
-  })
+    setTotal(getTotal(lineItems));
+    setBalance((monthlyIncome - total).toFixed(0) || 0);
+  });
 
-  const getTotal = (array) => (array.reduce((acc, curr) => acc + Number(curr.amount), 0))
+  const getTotal = (array) => array.reduce((acc, curr) => acc + Number(curr.amount), 0);
 
   const setSalary = (e) => {
-    const annualIncome = e.target.value
+    const annualIncome = e.target.value;
     setAnnualIncome(annualIncome);
     setMonthlyIncome((annualIncome / 12).toFixed(0));
   };
+
+  const handleSavings = (e) => {
+    const savings = e.target.value;
+    setPreTaxSavings(savings)
+  }
+
+  const handleInsurance = (e) => {
+    const insurance = e.target.value;
+    setPreTaxInsurance(insurance)
+  }
 
   const setAmount = (e) => {
     const id = e.target.id;
@@ -48,11 +61,21 @@ const MainContainer = () => {
       <div className='salary-input'>
         <SalaryInput setSalary={setSalary} />
       </div>
+      <div className='pre-tax-savings'>
+        <BeforeTax handleSavings={handleSavings} text={'Monthly Pre-Tax Savings (401k, IRA, Etc.)'} savings={true}/>
+      </div>
+      <div className='medical-insurance'>
+        <BeforeTax handleInsurance={handleInsurance} text={' MonthlyPre-Tax Insurance (Medical, Dental, Life, Etc.)'}/>
+      </div>
       <div className='monthly-pay'>
         <MonthlyPay monthlyIncome={monthlyIncome} balance={balance} />
       </div>
       <div className='budget-container'>
-        <BudgetContainer lineItems={lineItems} monthlyIncome={monthlyIncome} setAmount={setAmount} />
+        <BudgetContainer
+          lineItems={lineItems}
+          monthlyIncome={monthlyIncome}
+          setAmount={setAmount}
+        />
       </div>
     </div>
   );
