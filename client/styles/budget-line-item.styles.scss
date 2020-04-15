@@ -13,6 +13,8 @@
   background-color: $lightGray;
   margin-bottom: 5px;
   box-sizing: border-box;
+  transition: .1s;
+  border-left: 5px solid $darkGreen;
 
   &:hover {
     font-size: 1.25rem;

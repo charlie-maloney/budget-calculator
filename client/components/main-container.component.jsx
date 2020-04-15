@@ -21,15 +21,17 @@ const MainContainer = () => {
     { category: 'Discretionary', amount: 0 },
   ]);
 
-  // useEffect(() => {
-  //   setTotal(calcTotal(lineItems))
-  // })
+  useEffect(() => {
+    setTotal(getTotal(lineItems))
+    setBalance((monthlyIncome - total).toFixed(0) || 0)
+  })
 
-  // const calcTotal = (array) => (array.reduce((acc, curr) => acc + curr.amount, 0));
+  const getTotal = (array) => (array.reduce((acc, curr) => acc + Number(curr.amount), 0))
 
   const setSalary = (e) => {
-    setAnnualIncome(e.target.value);
-    setMonthlyIncome((e.target.value / 12).toFixed(2));
+    const annualIncome = e.target.value
+    setAnnualIncome(annualIncome);
+    setMonthlyIncome((annualIncome / 12).toFixed(0));
   };
 
   const setAmount = (e) => {
