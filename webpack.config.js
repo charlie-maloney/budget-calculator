@@ -14,6 +14,7 @@ module.exports = {
       '/user': 'http://localhost:3000', //here
     },
     historyApiFallback: true, //here
+    open: false
   },
   resolve: { extensions: ['.js', '.jsx'] },
   module: {

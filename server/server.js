@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose')
 const app = express();
 const path = require('path');
+const userController = require('./controllers/userController')
 
 const PORT = 3000;
 const mongoURI = 'mongodb://localhost/budgetcalculator'
@@ -22,14 +23,12 @@ if (process.env.NODE_ENV === 'production') {
 
 /* -------------------------- Signup & Login Routes ------------------------- */
 
-app.use('/user/login', (req, res) => {
-  console.log(req.body)
+app.post('/user/login', userController.verifyUser, (req, res) => {
   res.status(200).json('POST request recieved')
 })
 
-app.use('/user/signup', (req, res) => {
-  console.log(req)
-  res.status(200).send('POST request recieved')
+app.post('/user/signup', userController.createUser, (req, res) => {
+  res.status(200).send('Signup request recieved')
 })
 
 /* ------------------------------- 404 Handler ------------------------------ */

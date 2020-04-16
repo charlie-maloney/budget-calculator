@@ -1,9 +1,49 @@
 const User = require('../models/userModel')
 const path = require('path')
 const userController = {};
+const bcrypt = require('bcrypt')
+
+const SALT_WORK_FACTOR = 10;
 
 userController.createUser = (req, res, next) => {
-  // User
+  const {email, password} = req.body
+  User.create({email: email, password: password}, (err, doc) => {
+    if (err) {
+      return next({
+        log: 'Error in userController.createUser',
+        message: err
+      })
+    } else {
+      return next()
+    }
+  })
+}
+
+userController.verifyUser = (req, res, next) => {
+  const {email, password} = req.body
+  User.find({email: email}, (err, doc) => {
+    if (err) {
+      return next({
+        log: 'Error in userController.createUser',
+        message: err
+      })
+    } else if (doc.length === 1){
+      bcrypt.compare(password.toString(), doc[0].password, (err, result) => {
+        if (err) {
+          return next({
+            log: 'Error in bycrpt',
+            message: err
+          })
+        } else if (result) {
+          return next()
+        } else {
+          res.status(401).json({message: 'incorrect username or password'})
+        }
+      })
+    } else {
+      res.status(401).json({message: 'incorrect username or password'})
+    }
+  })
 }
 
 
