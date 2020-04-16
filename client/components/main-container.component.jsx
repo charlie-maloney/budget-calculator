@@ -6,8 +6,11 @@ import BeforeTax from './before-tax-deduct.component';
 import '../styles/main-container.styles.scss';
 
 import monthlyTaxCalc from '../utils/tax-calculator';
+import { set } from 'mongoose';
 
-const MainContainer = ({isAuth}) => {
+const MainContainer = ({ isAuth }) => {
+  const [fetched, setFetched] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const [annualIncome, setAnnualIncome] = useState(0);
   const [monthlyIncome, setMonthlyIncome] = useState(0);
   const [preTaxSavings, setPreTaxSavings] = useState(0);
@@ -15,7 +18,7 @@ const MainContainer = ({isAuth}) => {
   const [location, setLocation] = useState(0);
   const [balance, setBalance] = useState(0);
   const [total, setTotal] = useState(0);
-  const [newItem, setNewItem] = useState('')
+  const [newItem, setNewItem] = useState('');
   const [lineItems, setLineItems] = useState([
     { category: 'Saving', amount: '' },
     { category: 'Housing', amount: '' },
@@ -37,10 +40,26 @@ const MainContainer = ({isAuth}) => {
   });
 
   useEffect(function getUserData() {
-    if (isAuth) {
-      //fetch user data
+    if (isAuth && !fetched && !isFetching) {
+      console.log(isAuth);
+      setIsFetching(true);
+      fetch('/data/get/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userID: isAuth }),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          const {lineItems, annualIncome, preTaxSavings, preTaxInsurance} = data
+          setLineItems(lineItems)
+          setAnnualIncome(annualIncome)
+          setPreTaxSavings(preTaxSavings)
+          setPreTaxInsurance(preTaxInsurance)
+          setFetched(true)
+          setIsFetching(false)
+        });
     }
-  })
+  });
 
   const getTotal = (array) => array.reduce((acc, curr) => acc + Number(curr.amount), 0);
 
@@ -70,22 +89,22 @@ const MainContainer = ({isAuth}) => {
 
   const addItem = () => {
     const newArr = [...lineItems];
-    newArr.push({category: newItem, amount: 0})
-    setLineItems(newArr)
-    setNewItem('')
-  }
+    newArr.push({ category: newItem, amount: 0 });
+    setLineItems(newArr);
+    setNewItem('');
+  };
 
   const handleNewItem = (e) => {
-    const item = e.target.value
-    setNewItem(item)
-  }
+    const item = e.target.value;
+    setNewItem(item);
+  };
 
   const deleteLineItem = (e) => {
-    const id = Number(e.target.id)
-    let newArr = [...lineItems]
-    newArr = newArr.filter((item, i) => i !== id)
-    setLineItems(newArr)
-  }
+    const id = Number(e.target.id);
+    let newArr = [...lineItems];
+    newArr = newArr.filter((item, i) => i !== id);
+    setLineItems(newArr);
+  };
 
   return (
     <div className='main-container'>

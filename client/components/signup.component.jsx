@@ -20,7 +20,9 @@ const Signup = ({ isAuth, signIn }) => {
         body: JSON.stringify(user),
       })
         .then((resp) => resp.json())
-        .then((userID) => {signIn(userID)})
+        .then((userID) => {
+          signIn(userID);
+        })
         .catch((err) => console.log('Signup Component: fetch POST /signup/ ERROR: ', err));
     } else {
       setPasswordMatch(false);

@@ -19,6 +19,7 @@ dataController.saveData = (req, res, next) => {
 
 dataController.getData = (req, res, next) => {
   const {userID} = req.body
+  console.log('userID:', userID)
   Data.find({userID: userID}, (err, doc) => {
     if (err) {
       next({

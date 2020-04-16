@@ -12,6 +12,7 @@ module.exports = {
     publicPath: '/build/',
     proxy: {
       '/user': 'http://localhost:3000', //here
+      '/data': 'http://localhost:3000', //here
     },
     historyApiFallback: true, //here
     open: false

@@ -18,12 +18,11 @@ const Login = ({ signIn }) => {
       body: JSON.stringify(user),
     })
       .then((resp) => {
-        console.log('status', resp.status)
         if (resp.status > 400) {
           setPasswordMatch(false);
           setTimeout(() => setPasswordMatch(true), 2000);
-          throw new Error('Unauthorized Access')
-        } 
+          throw new Error('Unauthorized Access');
+        }
         return resp.json();
       })
       .then((userID) => {
