@@ -3,20 +3,26 @@ import Button from './button.component';
 import { Link } from 'react-router-dom';
 import '../styles/header.styles.scss';
 
-const Header = () => (
+const Header = ({ isAuth, signOut }) => (
   <div className='header-container'>
     <Link to='/'>
-    <div className='logo'>
-      <i className='fas fa-money-bill-wave-alt'></i>
-    </div>
+      <div className='logo'>
+        <i className='fas fa-money-bill-wave-alt'></i>
+      </div>
     </Link>
     <div className='login-options'>
-      <Link to='/signin'>
-        <Button>Sign In</Button>
-      </Link>
-      <Link to='/signin'>
-        <Button primary>Sign Up</Button>
-      </Link>
+      {!isAuth ? (
+        <div>
+          <Link to='/signin'>
+            <Button>Sign In</Button>
+          </Link>
+          <Link to='/signin'>
+            <Button primary>Sign Up</Button>
+          </Link>
+        </div>
+      ) : (
+        <Button onClick={signOut}>Sign Out</Button>
+      )}
     </div>
   </div>
 );

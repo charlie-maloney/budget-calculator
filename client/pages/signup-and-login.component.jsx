@@ -3,11 +3,11 @@ import '../styles/signup-and-login.styles.scss'
 import Signup from '../components/signup.component';
 import Login from '../components/login.component';
 
-const SignupAndLogin = () => {
+const SignupAndLogin = ({isAuth, signIn}) => {
   return (
     <div className="signup-and-login">
-      <Signup/>
-      <Login/>
+      <Signup isAuth={isAuth} signIn={signIn}/>
+      <Login isAuth={isAuth} signIn={signIn}/>
     </div>
   )
 }

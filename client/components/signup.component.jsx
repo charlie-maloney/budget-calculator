@@ -3,29 +3,30 @@ import FormInput from '../components/form-input.component';
 import Button from '../components/button.component';
 import '../styles/signup.styles.scss';
 
-const Signup = () => {
-  const [passwordMatch, setPasswordMatch] = useState(true)
+const Signup = ({ isAuth, signIn }) => {
+  const [passwordMatch, setPasswordMatch] = useState(true);
   const [user, setUser] = useState({
     email: '',
     password: '',
     confirmPassword: '',
   });
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (user.password === user.confirmPassword) {
       fetch('/user/signup/', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(user)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user),
       })
-      .then(resp => resp.json())
-      .then(data => console.log(data))
-      .catch(err => console.log('Signup Component: fetch POST /signup/ ERROR: ', err))
+        .then((resp) => resp.json())
+        .then((data) => {
+          if (data === 'User successfully created') signIn();
+        })
+        .catch((err) => console.log('Signup Component: fetch POST /signup/ ERROR: ', err));
     } else {
-      setPasswordMatch(false)
-      setTimeout(() => setPasswordMatch(true), 2000)
+      setPasswordMatch(false);
+      setTimeout(() => setPasswordMatch(true), 2000);
     }
   };
 
@@ -33,7 +34,7 @@ const Signup = () => {
     const { name, value } = e.target;
     setUser({
       ...user,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -50,7 +51,7 @@ const Signup = () => {
           label='email'
         />
         <FormInput
-          passwordMatch={passwordMatch ? null : 'wrong-password'}  
+          passwordMatch={passwordMatch ? null : 'wrong-password'}
           handleChange={handleChange}
           name='password'
           type='password'
@@ -58,7 +59,7 @@ const Signup = () => {
           label='password'
         />
         <FormInput
-          passwordMatch={passwordMatch ? null : 'wrong-password'}  
+          passwordMatch={passwordMatch ? null : 'wrong-password'}
           handleChange={handleChange}
           name='confirmPassword'
           type='password'
