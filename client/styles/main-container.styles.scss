@@ -1,4 +1,5 @@
 .main-container {
+  position: relative;
   width: 90vw;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -10,6 +11,12 @@
     "pay pay"
     "chart line-items"
     ;
+
+    .save-button {
+      position: absolute; 
+      right: 0;
+      bottom: 0;
+    }
 }
 
 .salary-input {
@@ -30,8 +37,3 @@
   grid-area: pay;
 }
 
-// .hello {
-//   width: 100%;
-//   border: 1px solid green;
-//   grid-area: header;
-// }

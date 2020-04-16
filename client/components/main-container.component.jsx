@@ -7,6 +7,7 @@ import '../styles/main-container.styles.scss';
 
 import monthlyTaxCalc from '../utils/tax-calculator';
 import { set } from 'mongoose';
+import Button from './button.component';
 
 const MainContainer = ({ isAuth }) => {
   const [fetched, setFetched] = useState(false);
@@ -39,9 +40,9 @@ const MainContainer = ({ isAuth }) => {
     setMonthlyIncome(monthlyPayCheck);
   });
 
+  /* ---------------------------- Fetch User  Data ---------------------------- */
   useEffect(function getUserData() {
     if (isAuth && !fetched && !isFetching) {
-      console.log(isAuth);
       setIsFetching(true);
       fetch('/data/get/', {
         method: 'POST',
@@ -50,16 +51,36 @@ const MainContainer = ({ isAuth }) => {
       })
         .then((resp) => resp.json())
         .then((data) => {
-          const {lineItems, annualIncome, preTaxSavings, preTaxInsurance} = data
-          setLineItems(lineItems)
-          setAnnualIncome(annualIncome)
-          setPreTaxSavings(preTaxSavings)
-          setPreTaxInsurance(preTaxInsurance)
-          setFetched(true)
-          setIsFetching(false)
-        });
+          const { lineItems, annualIncome, preTaxSavings, preTaxInsurance } = data;
+          setLineItems(lineItems);
+          setAnnualIncome(annualIncome);
+          setPreTaxSavings(preTaxSavings);
+          setPreTaxInsurance(preTaxInsurance);
+          setFetched(true);
+          setIsFetching(false);
+        })
+        .catch(err => console.log('ERROR in getUserData:', err))
     }
   });
+
+  /* ----------------------------- Save User Data ----------------------------- */
+  const saveUserData = () => {
+    const userData = {
+      lineItems: lineItems,
+      annualIncome: annualIncome,
+      preTaxSavings: preTaxSavings,
+      preTaxInsurance: preTaxInsurance,
+      userID: isAuth
+    };
+    fetch('/data/save/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userData),
+    })
+    .then(resp => resp.json())
+    .then(message => console.log(message))
+    .catch(err => console.log('ERROR in saveUserData:', err))
+  };
 
   const getTotal = (array) => array.reduce((acc, curr) => acc + Number(curr.amount), 0);
 
@@ -109,7 +130,7 @@ const MainContainer = ({ isAuth }) => {
   return (
     <div className='main-container'>
       <div className='salary-input'>
-        <SalaryInput setSalary={setSalary} annualIncome={annualIncome}/>
+        <SalaryInput setSalary={setSalary} annualIncome={annualIncome} />
       </div>
       <div className='pre-tax-savings'>
         <BeforeTax
@@ -139,6 +160,9 @@ const MainContainer = ({ isAuth }) => {
           monthlyIncome={monthlyIncome}
           setAmount={setAmount}
         />
+      </div>
+      <div className='save-button'>
+        <Button onClick={saveUserData}>Save</Button>
       </div>
     </div>
   );

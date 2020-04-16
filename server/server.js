@@ -39,8 +39,6 @@ app.post('/data/save', dataController.saveData, (req, res) => {
 })
 
 app.post('/data/get', dataController.getData, (req, res) => {
-  console.log('sending Data')
-  console.log(res.locals.data)
   res.status(200).json(res.locals.data)
 })
 
