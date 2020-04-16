@@ -3,6 +3,7 @@ import SalaryInput from './salary-input.component';
 import BudgetContainer from './budget-container.component';
 import MonthlyPay from './monthly-pay.component';
 import BeforeTax from './before-tax-deduct.component';
+import { Doughnut } from 'react-chartjs-2';
 import '../styles/main-container.styles.scss';
 
 import monthlyTaxCalc from '../utils/tax-calculator';
@@ -59,7 +60,7 @@ const MainContainer = ({ isAuth }) => {
           setFetched(true);
           setIsFetching(false);
         })
-        .catch(err => console.log('ERROR in getUserData:', err))
+        .catch((err) => console.log('ERROR in getUserData:', err));
     }
   });
 
@@ -70,16 +71,16 @@ const MainContainer = ({ isAuth }) => {
       annualIncome: annualIncome,
       preTaxSavings: preTaxSavings,
       preTaxInsurance: preTaxInsurance,
-      userID: isAuth
+      userID: isAuth,
     };
     fetch('/data/save/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData),
     })
-    .then(resp => resp.json())
-    .then(message => console.log(message))
-    .catch(err => console.log('ERROR in saveUserData:', err))
+      .then((resp) => resp.json())
+      .then((message) => console.log(message))
+      .catch((err) => console.log('ERROR in saveUserData:', err));
   };
 
   const getTotal = (array) => array.reduce((acc, curr) => acc + Number(curr.amount), 0);
@@ -127,6 +128,40 @@ const MainContainer = ({ isAuth }) => {
     setLineItems(newArr);
   };
 
+  /* ----------------------------- Pie Chart Data ----------------------------- */
+  const colors = [
+    '#458B00',
+    '#66CD00',
+    '#76EE00',
+    '#629632',
+    '#659D32',
+    '#397D02',
+    '#BCED91',
+    '#A6D785',
+    '#61B329',
+    '#476A34',
+    '#4CBB17',
+    '#308014',
+    '#55AE3A',
+  ];
+
+  const options = {
+    legend: {
+      display: false,
+    },
+  };
+
+  const data = {
+    labels: lineItems.map((array) => array.category),
+    datasets: [
+      {
+        data: lineItems.map((obj) => obj.amount || 0),
+        backgroundColor: colors,
+        hoverBackgroundColor: colors,
+      },
+    ],
+  };
+
   return (
     <div className='main-container'>
       <div className='salary-input'>
@@ -152,6 +187,7 @@ const MainContainer = ({ isAuth }) => {
       </div>
       <div className='budget-container'>
         <BudgetContainer
+          colors={colors}
           newItem={newItem}
           deleteLineItem={deleteLineItem}
           handleNewItem={handleNewItem}
@@ -160,6 +196,9 @@ const MainContainer = ({ isAuth }) => {
           monthlyIncome={monthlyIncome}
           setAmount={setAmount}
         />
+      </div>
+      <div className='pie-chart'>
+        <Doughnut data={data} options={options} width={250} />
       </div>
       <div className='save-button'>
         <Button onClick={saveUserData}>Save</Button>

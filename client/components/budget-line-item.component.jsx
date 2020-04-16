@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/budget-line-item.styles.scss';
 
-const BudgetLineItem = ({ id, category, amount, monthlyIncome, setAmount, deleteLineItem }) => {
+const BudgetLineItem = ({ id, category, amount, monthlyIncome, setAmount, deleteLineItem, colors }) => {
 
   const formatPercentage = (amount, monthlyIncome) => {
     if (amount / monthlyIncome && Infinity) {
@@ -11,9 +11,15 @@ const BudgetLineItem = ({ id, category, amount, monthlyIncome, setAmount, delete
     }
   }
 
+  const barChartStyle = {
+    width: `${formatPercentage(amount, monthlyIncome)}%`,
+    backgroundColor: colors[id],
+    opacity: 0.1
+  }
+
   return (
     <div className='line-item'>
-      <div className="fill-level" style={{width: `${formatPercentage(amount, monthlyIncome)}%`}}></div>
+      <div className="fill-level" style={barChartStyle}></div>
       <div className='category'>{category}</div>
       <div className='percentage'>{formatPercentage(amount, monthlyIncome)}%</div>
       <input id={id} type='text' placeholder='$' onChange={setAmount} value={amount || ''}/>
