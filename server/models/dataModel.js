@@ -6,7 +6,7 @@ const dataSchema = new Schema({
   preTaxSavings: Number,
   preTaxInsurance: Number,
   lineItems: [],
-  userID: {type: Schema.Types.ObjectId, ref: 'User'}
+  userID: {type: Schema.Types.ObjectId, ref: 'User', required: true}
 })
 
 module.exports = mongoose.model('Data', dataSchema)

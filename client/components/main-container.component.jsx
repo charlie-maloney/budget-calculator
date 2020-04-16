@@ -11,6 +11,7 @@ import { set } from 'mongoose';
 import Button from './button.component';
 
 const MainContainer = ({ isAuth }) => {
+  const [isSaving, setIsSaving] = useState(false)
   const [fetched, setFetched] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [annualIncome, setAnnualIncome] = useState(0);
@@ -66,23 +67,29 @@ const MainContainer = ({ isAuth }) => {
 
   /* ----------------------------- Save User Data ----------------------------- */
   const saveUserData = () => {
-    const userData = {
-      lineItems: lineItems,
-      annualIncome: annualIncome,
-      preTaxSavings: preTaxSavings,
-      preTaxInsurance: preTaxInsurance,
-      userID: isAuth,
-    };
-    fetch('/data/save/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData),
-    })
-      .then((resp) => resp.json())
-      .then((message) => console.log(message))
-      .catch((err) => console.log('ERROR in saveUserData:', err));
+    if (isAuth) {
+      const userData = {
+        lineItems: lineItems,
+        annualIncome: annualIncome,
+        preTaxSavings: preTaxSavings,
+        preTaxInsurance: preTaxInsurance,
+        userID: isAuth,
+      };
+      fetch('/data/save/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      })
+        .then((resp) => resp.json())
+        .then((message) => console.log(message))
+        .catch((err) => console.log('ERROR in saveUserData:', err));
+
+        setIsSaving(true)
+        setTimeout(() => setIsSaving(false), 2000)
+    }
   };
 
+/* -------------------------------- Handlers -------------------------------- */
   const getTotal = (array) => array.reduce((acc, curr) => acc + Number(curr.amount), 0);
 
   const setSalary = (e) => {
@@ -201,7 +208,7 @@ const MainContainer = ({ isAuth }) => {
         <Doughnut data={data} options={options} width={250} />
       </div>
       <div className='save-button'>
-        <Button onClick={saveUserData}>Save</Button>
+        <Button onClick={saveUserData}>{isSaving ? 'Saving' : 'Save'}</Button>
       </div>
     </div>
   );
