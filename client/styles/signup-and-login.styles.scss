@@ -1,0 +1,10 @@
+@import './constants/colors';
+@import './constants/fonts';
+
+.signup-and-login {
+  width: 100%;
+  height: 80vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 1rem;
+}

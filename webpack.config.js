@@ -5,13 +5,15 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
+    publicPath: '/' //here
   },
   mode: process.env.NODE_ENV,
   devServer: {
     publicPath: '/build/',
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/api': 'http://localhost:3000', //here
     },
+    historyApiFallback: true, //here
   },
   resolve: { extensions: ['.js', '.jsx'] },
   module: {

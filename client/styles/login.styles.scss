@@ -1,0 +1,33 @@
+@import './constants/colors';
+@import './constants/fonts';
+
+.login {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 90%;
+  max-width: 500px;
+  max-height: 500px;
+  border: 1px solid $lightGray;
+  padding: 3rem;
+  box-sizing: border-box;
+
+  h2 {
+    color: white;
+    font-size: 1.25rem;
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  span {
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+
+  .button {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

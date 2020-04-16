@@ -1,0 +1,22 @@
+@import './constants/colors';
+@import './constants/fonts';
+
+
+.form {
+
+    input {
+    background-color: $lightGray;
+    padding: 0.25rem 0.5rem;
+    border: none;
+    font-size: 1.15rem;
+    font-family: $roboto;
+    color: white;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-weight: 300;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

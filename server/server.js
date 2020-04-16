@@ -20,12 +20,10 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.post('/signup', 
-
 /* ------------------------------- 404 Handler ------------------------------ */
 app.use('*', (req, res) => {
-  res.status(404).send('Not Found');
-}));
+  res.status(404).send('Server: Not Found');
+});
 
 /* -------------------------- Global Error Handler -------------------------- */
 app.use((err, req, res, next) => {

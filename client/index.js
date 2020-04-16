@@ -1,9 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { HashRouter } from 'react-router-dom';
 import App from './App';
-import './styles/app.styles.scss'
+import './styles/app.styles.scss';
 
-
-render(<App />, document.getElementById('root'));
-
-// document.body.style = 'background-color: black;';
+render(
+  <HashRouter>
+    <App />
+  </HashRouter>,
+  document.getElementById('root')
+);
