@@ -1,9 +1,9 @@
 import React from 'react';
 import '../styles/form-input.styles.scss'
 
-const FormInput = ({type, label, placeholder}) => (
+const FormInput = ({type, label, placeholder, name, handleChange, passwordMatch}) => (
   <div className='form'>
-    <input type={type} label={label} placeholder={placeholder.toUpperCase()} />
+    <input className={passwordMatch} onChange={handleChange} name={name} type={type} label={label} placeholder={placeholder.toUpperCase()} />
   </div>
 
 );
