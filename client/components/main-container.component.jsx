@@ -4,10 +4,10 @@ import BudgetContainer from './budget-container.component';
 import MonthlyPay from './monthly-pay.component';
 import BeforeTax from './before-tax-deduct.component';
 import { Doughnut } from 'react-chartjs-2';
+import NumberFormat from 'react-number-format';
 import '../styles/main-container.styles.scss';
 
 import monthlyTaxCalc from '../utils/tax-calculator';
-import { set } from 'mongoose';
 import Button from './button.component';
 
 const MainContainer = ({ isAuth }) => {
@@ -85,7 +85,7 @@ const MainContainer = ({ isAuth }) => {
         .catch((err) => console.log('ERROR in saveUserData:', err));
 
         setIsSaving(true)
-        setTimeout(() => setIsSaving(false), 2000)
+        setTimeout(() => setIsSaving(false), 1000)
     }
   };
 
@@ -93,6 +93,7 @@ const MainContainer = ({ isAuth }) => {
   const getTotal = (array) => array.reduce((acc, curr) => acc + Number(curr.amount), 0);
 
   const setSalary = (e) => {
+    console.log(e.target.value)
     const annualIncome = Number(e.target.value);
     setAnnualIncome(annualIncome);
   };
@@ -205,7 +206,7 @@ const MainContainer = ({ isAuth }) => {
         />
       </div>
       <div className='pie-chart'>
-        <Doughnut data={data} options={options} width={250} />
+        <Doughnut data={data} options={options} width={300} />
       </div>
       <div className='save-button'>
         <Button onClick={saveUserData}>{isSaving ? 'Saving' : 'Save'}</Button>
