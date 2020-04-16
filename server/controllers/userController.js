@@ -13,6 +13,7 @@ userController.createUser = (req, res, next) => {
         message: err
       })
     } else {
+      res.locals.userID = doc._id
       return next()
     }
   })
@@ -34,6 +35,9 @@ userController.verifyUser = (req, res, next) => {
             message: err
           })
         } else if (result) {
+          console.log(doc)
+          res.locals.userID = doc[0]._id
+          console.log(res.locals.userID)
           return next()
         } else {
           res.status(401).json({message: 'incorrect username or password'})

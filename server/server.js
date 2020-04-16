@@ -25,11 +25,11 @@ if (process.env.NODE_ENV === 'production') {
 /* -------------------------- Signup & Login Routes ------------------------- */
 
 app.post('/user/login', userController.verifyUser, (req, res) => {
-  res.status(200).json('User successfully logged in')
+  res.status(200).json(res.locals.userID)
 })
 
 app.post('/user/signup', userController.createUser, (req, res) => {
-  res.status(200).json('User successfully created')
+  res.status(200).json(res.locals.userID)
 })
 
 /* ------------------------ Data Creation & Retrieval ----------------------- */

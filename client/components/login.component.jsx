@@ -17,14 +17,17 @@ const Login = ({ signIn }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
     })
-      .then((resp) => resp.json())
-      .then((data) => {
-        if (data === 'User successfully logged in') {
-          signIn();
-        } else {
+      .then((resp) => {
+        console.log('status', resp.status)
+        if (resp.status > 400) {
           setPasswordMatch(false);
           setTimeout(() => setPasswordMatch(true), 2000);
-        }
+          throw new Error('Unauthorized Access')
+        } 
+        return resp.json();
+      })
+      .then((userID) => {
+        return signIn(userID);
       })
       .catch((err) => console.log('Login Component: fetch POST /user/login/ ERROR: ', err));
   };
