@@ -16,7 +16,7 @@ const BudgetLineItem = ({ id, category, amount, monthlyIncome, setAmount, delete
       <div className="fill-level" style={{width: `${formatPercentage(amount, monthlyIncome)}%`}}></div>
       <div className='category'>{category}</div>
       <div className='percentage'>{formatPercentage(amount, monthlyIncome)}%</div>
-      <input id={id} type='text' placeholder='$' onChange={setAmount} value={amount}/>
+      <input id={id} type='text' placeholder='$' onChange={setAmount} value={amount || ''}/>
       <i id={id} onClick={deleteLineItem} className="fas fa-minus-square"></i>
     </div>
   );

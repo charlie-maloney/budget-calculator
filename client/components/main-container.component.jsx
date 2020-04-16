@@ -109,19 +109,21 @@ const MainContainer = ({ isAuth }) => {
   return (
     <div className='main-container'>
       <div className='salary-input'>
-        <SalaryInput setSalary={setSalary} />
+        <SalaryInput setSalary={setSalary} annualIncome={annualIncome}/>
       </div>
       <div className='pre-tax-savings'>
         <BeforeTax
           handleSavings={handleSavings}
           text={'Monthly Pre-Tax Savings (401k, IRA, Etc.)'}
           savings={true}
+          preTaxSavings={preTaxSavings}
         />
       </div>
       <div className='medical-insurance'>
         <BeforeTax
           handleInsurance={handleInsurance}
           text={' Monthly Pre-Tax Insurance (Medical, Dental, Life, Etc.)'}
+          preTaxInsurance={preTaxInsurance}
         />
       </div>
       <div className='monthly-pay'>
