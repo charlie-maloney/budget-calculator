@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const app = express();
 const path = require('path');
 const userController = require('./controllers/userController')
+const dataController = require('./controllers/dataController')
 
 const PORT = 3000;
 const mongoURI = 'mongodb://localhost/budgetcalculator'
@@ -29,6 +30,16 @@ app.post('/user/login', userController.verifyUser, (req, res) => {
 
 app.post('/user/signup', userController.createUser, (req, res) => {
   res.status(200).json('User successfully created')
+})
+
+/* ------------------------ Data Creation & Retrieval ----------------------- */
+
+app.post('/data', dataController.saveData, (req, res) => {
+  res.status(200).json('Data successfully saved')
+})
+
+app.get('/data', dataController.getData, (req, res) => {
+  res.status(200).json(res.locals.data)
 })
 
 /* ------------------------------- 404 Handler ------------------------------ */

@@ -2,9 +2,9 @@ import React from 'react';
 import MainContainer from '../components/main-container.component';
 import '../styles/homepage.styles.scss'
 
-const Homepage = () => (
+const Homepage = ({isAuth}) => (
   <div className='homepage'>
-    <MainContainer />
+    <MainContainer isAuth={isAuth}/>
   </div>
 );
 

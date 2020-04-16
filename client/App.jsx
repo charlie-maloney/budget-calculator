@@ -5,14 +5,14 @@ import Homepage from './pages/homepage.component';
 import SignupAndLogin from './pages/signup-and-login.component';
 
 const App = () => {
-  const [isAuth, setisAuth] = useState(false);
+  const [isAuth, setisAuth] = useState(null);
 
   const signOut = () => {
-    setisAuth(false)
+    setisAuth(null)
   }
 
-  const signIn = () => {
-    setisAuth(true)
+  const signIn = (userID) => {
+    setisAuth(userID)
   }
 
   return (
@@ -21,7 +21,6 @@ const App = () => {
       <Switch>
         <Route exact path='/' render={() => <Homepage isAuth={isAuth} signIn={signIn} />}></Route>
         <Route path='/signin' render={() => isAuth ? (<Redirect to='/'/>) : (<SignupAndLogin isAuth={isAuth} signIn={signIn}/>)}></Route>
-        {/* <Route path='/signin' render={() => <SignupAndLogin isAuth={isAuth} signIn={signIn}/>}></Route> */}
       </Switch>
     </div>
   );

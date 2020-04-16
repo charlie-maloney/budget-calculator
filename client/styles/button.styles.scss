@@ -3,13 +3,14 @@
 
 
 .custom-button {
+  vertical-align: top;
   padding: 0.25rem 1.75rem;
   background-color: $darkGray;
   margin-left: 1.5rem;
   font-family: $roboto;
   font-size: 1rem;
   color: white;
-  border: 1.5px solid $primaryGreen;
+  border: 1px solid $primaryGreen;
   border-radius: 5px;
   outline: none;
 
@@ -29,5 +30,19 @@
   &:hover {
     background-color: $darkGreen;
     border: 1.5px solid $darkGreen;
+  }
+}
+
+.low-emphasis {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  border-bottom: 1px solid $primaryGreen;
+  border-radius: 0px;
+  font-size: 0.95rem;
+
+  &:hover {
+    border-bottom: 3px solid $primaryGreen;
+    background-color: rgba(0, 0, 0, 0);
+    // border-radius: 5px;
   }
 }

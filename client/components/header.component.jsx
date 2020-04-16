@@ -14,7 +14,7 @@ const Header = ({ isAuth, signOut }) => (
       {!isAuth ? (
         <div>
           <Link to='/signin'>
-            <Button>Sign In</Button>
+            <Button low>Sign In</Button>
           </Link>
           <Link to='/signin'>
             <Button primary>Sign Up</Button>

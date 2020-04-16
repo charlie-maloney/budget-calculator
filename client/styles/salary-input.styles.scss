@@ -2,6 +2,7 @@
 @import './constants/fonts';
 
 .salary-container {
+  position: relative;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -22,5 +23,10 @@
     &:focus {
       outline: none;
     }
+  }
+
+  .save-button {
+    position: absolute; 
+    right: 1rem;
   }
 }

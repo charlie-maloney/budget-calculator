@@ -7,7 +7,7 @@ import '../styles/main-container.styles.scss';
 
 import monthlyTaxCalc from '../utils/tax-calculator';
 
-const MainContainer = () => {
+const MainContainer = ({isAuth}) => {
   const [annualIncome, setAnnualIncome] = useState(0);
   const [monthlyIncome, setMonthlyIncome] = useState(0);
   const [preTaxSavings, setPreTaxSavings] = useState(0);
@@ -35,6 +35,12 @@ const MainContainer = () => {
     const monthlyPayCheck = monthlyTaxCalc(annualIncome, preTaxSavings, preTaxInsurance).toFixed(0);
     setMonthlyIncome(monthlyPayCheck);
   });
+
+  useEffect(function getUserData() {
+    if (isAuth) {
+      //fetch user data
+    }
+  })
 
   const getTotal = (array) => array.reduce((acc, curr) => acc + Number(curr.amount), 0);
 
