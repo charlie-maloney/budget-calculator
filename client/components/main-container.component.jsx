@@ -4,7 +4,6 @@ import BudgetContainer from './budget-container.component';
 import MonthlyPay from './monthly-pay.component';
 import BeforeTax from './before-tax-deduct.component';
 import { Doughnut } from 'react-chartjs-2';
-import NumberFormat from 'react-number-format';
 import '../styles/main-container.styles.scss';
 
 import monthlyTaxCalc from '../utils/tax-calculator';

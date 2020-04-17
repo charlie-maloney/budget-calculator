@@ -1,17 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose')
+var cookieParser = require('cookie-parser')
 const app = express();
 const path = require('path');
 const userController = require('./controllers/userController')
 const dataController = require('./controllers/dataController')
+const cookieController = require('./controllers/cookieController')
 
 const PORT = 3000;
 const mongoURI = 'mongodb://localhost/budgetcalculator'
 
 mongoose.connect(mongoURI, {useNewUrlParser: true, useUnifiedTopology: true})
 
-app.use(express.json())
 
+app.use(express.json())
+app.use(cookieParser())
 /* -------------------------- Serve Static Assets -------------------------- */
 if (process.env.NODE_ENV === 'production') {
   // statically serve everything in the build folder on the route '/build'
@@ -24,11 +27,11 @@ if (process.env.NODE_ENV === 'production') {
 
 /* -------------------------- Signup & Login Routes ------------------------- */
 
-app.post('/user/login', userController.verifyUser, (req, res) => {
+app.post('/user/login', userController.verifyUser, cookieController.setUserID, (req, res) => {
   res.status(200).json(res.locals.userID)
 })
 
-app.post('/user/signup', userController.createUser, (req, res) => {
+app.post('/user/signup', userController.createUser, cookieController.setUserID, (req, res) => {
   res.status(200).json(res.locals.userID)
 })
 

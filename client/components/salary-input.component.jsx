@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/salary-input.styles.scss';
-import NumberFormat from 'react-number-format';
 
 
 const SalaryInput = ({ setSalary, annualIncome }) => (
